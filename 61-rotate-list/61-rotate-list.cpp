@@ -10,50 +10,26 @@
  */
 class Solution {
 public:
-    //Reverse a linked list
-    ListNode* reverseList(ListNode* root) {
-        ListNode* prev = NULL;
-        ListNode* curr = root;
-        while (curr != NULL) {
-            ListNode* nextTemp = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nextTemp;
-        }
-        return prev;
-    }
-    
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head==NULL)
+        if(head==NULL){
             return 0;
-        ListNode* newhead = head;
-        int length=0;
-        while(newhead!=NULL){
-            length++;
-            newhead=newhead->next;
         }
-        k = k%length;
-        if(k==0)
-            return head;
-        head=reverseList(head);
-        ListNode* kthnode=head;
-        while(k>1 && kthnode){
-            kthnode=kthnode->next;
-            k--;
+        vector<int> nums;
+        ListNode* node=head;
+        while(node){
+            nums.push_back(node->val);
+            node=node->next;
         }
-        //ListNode* secondhalf=NULL;
-        if(kthnode==NULL || kthnode->next==NULL)
-            return head;
-        
-        ListNode* secondhalf=reverseList(kthnode->next);
-        kthnode->next=NULL;
-        
-        ListNode* firsthalfend=reverseList(head);
-        ListNode* result=firsthalfend;
-        while(firsthalfend && firsthalfend->next){
-            firsthalfend=firsthalfend->next;
+        k=k%nums.size();
+        reverse(nums.begin(),nums.end());
+        reverse(nums.begin(),nums.begin()+k);
+        reverse(nums.begin()+k,nums.end());
+        node=head;
+        int i=0;
+        while(node){
+            node->val=nums[i++];
+            node=node->next;
         }
-        firsthalfend->next=secondhalf;
-        return result;
+        return head;
     }
 };
