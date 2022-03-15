@@ -1,39 +1,24 @@
 class Solution {
 public:
-    unordered_map<int,char> mp;
-    void isValid(string s) {
-        stack<pair<char,int>> st;
-        int i=-1;
-        for(auto x:s){
-            i++;
-            if(x=='(')
-                st.push({x,i});
-            
-            else if(x==')'){
-                if(st.empty())
-                    continue;
-                
-                if(st.top().first=='(' and x!=')')
-                    continue;
-                
-                else{
-                    mp[st.top().second]=st.top().first;
-                    mp[i]=x;
-                    st.pop();
-                }
-            }
-            //i++;
-        }
-    }
     string minRemoveToMakeValid(string s) {
-        string ans="";
-        isValid(s);
+        stack<int> st;
         for(int i=0;i<s.length();i++){
-            if(s[i]=='(' || s[i]==')'){
-                if(mp.count(i))
-                    ans+=s[i];
+            if(s[i]=='(')
+                st.push(i);
+            else if(s[i]==')'){
+                if(st.empty())
+                    s[i]='#';
+                else
+                    st.pop();
             }
-            else
+        }
+        while(!st.empty()){
+            s[st.top()]='#';
+            st.pop();
+        }
+        string ans="";
+        for(int i=0;i<s.length();i++){
+            if(s[i]!='#')
                 ans+=s[i];
         }
         return ans;
