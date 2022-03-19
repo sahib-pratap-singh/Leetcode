@@ -21,7 +21,7 @@ public:
                 while(pre->right && pre->right!=root)
                     pre=pre->right;
                 
-                if(!pre->right){
+                if(pre->right==NULL){
                     pre->right=root;
                     root=root->left;
                 }
