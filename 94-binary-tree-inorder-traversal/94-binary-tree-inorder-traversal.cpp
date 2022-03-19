@@ -18,10 +18,10 @@ public:
         while(root){
             if(root->left){
                 TreeNode* pre=root->left;
-                while(pre->right && pre->right!=root){
+                while(pre->right && pre->right!=root)
                     pre=pre->right;
-                }
-                if(pre->right==NULL){
+                
+                if(!pre->right){
                     pre->right=root;
                     root=root->left;
                 }
