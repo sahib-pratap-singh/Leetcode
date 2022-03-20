@@ -9,6 +9,7 @@ public:
         //Count the occurence of numbers which are same in tops and bottom at same index
         vector<int> same(7,0);
         
+        //Iterate from 0 to n
         for(int i=0;i<n;i++){
             //Increment the count of tops[i]
             countA[tops[i]]++;
